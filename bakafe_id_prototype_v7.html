@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAKAFE.ID — Prototipe v4</title>
+<style>
+:root{--green:#153d32;--cream:#f5f5f0;--orange:#f2a541;--ink:#172b25;--muted:#718078;--line:#e2e8e3;--red:#b83c36}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#eeeae2;color:var(--ink)}
+header{background:#090b0a;color:white;padding:22px 14px;box-shadow:0 10px 30px #0002}header .wrap,main{max-width:1120px;margin:auto}.brand{font-size:29px;font-weight:950;letter-spacing:1.5px}.tag{font-size:13px;opacity:.88;letter-spacing:.2px}
+nav{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}button{border:0;border-radius:12px;padding:11px 14px;font-weight:800;cursor:pointer;font-size:14px;transition:transform .12s ease,filter .12s ease;box-shadow:0 3px 8px #102f270b}button:hover{filter:brightness(1.04);transform:translateY(-1px)}button:active{transform:translateY(0)}button:disabled{opacity:.45;cursor:not-allowed;transform:none}nav button{background:#ffffff1b;color:white;border:1px solid #ffffff3a}nav button.active{background:var(--orange);color:#2d261c}
+main{padding:20px 13px 40px}.notice{background:#fff4db;border:1px solid #f0d99e;padding:13px 14px;border-radius:14px;margin-bottom:16px;font-size:13px}
+h1{font-size:23px;margin:8px 0 4px}h2{font-size:19px}p.sub,.muted{color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px}
+.card,.order{background:#fff;border:1px solid #e3ded5;border-radius:18px;padding:16px;box-shadow:0 9px 28px #18392b0a;transition:transform .18s ease,box-shadow .18s ease}.card:hover{box-shadow:0 12px 32px #18392b12}.foodpic{height:170px;background:linear-gradient(135deg,#303330,#151715);border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:57px;overflow:hidden}.foodpic img{width:100%;height:100%;object-fit:cover}.food-title{font-size:19px;font-weight:900;margin-top:11px;letter-spacing:-.3px}.price{font-weight:850;color:var(--green);margin:4px 0}.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.pill{display:inline-block;border-radius:99px;padding:5px 9px;font-size:12px;font-weight:800;background:#e4f3e8;color:#21643b}.pill.low{background:#fff0ce;color:#87550a}.pill.out{background:#fde5e3;color:#a42c26}
+.btn{background:var(--green);color:white}.orange{background:var(--orange);color:#2d261c}.light{background:#edf2ed;color:var(--green)}.red{background:var(--red);color:white}
+input,select{width:100%;border:1px solid #d9d7cd;border-radius:9px;padding:10px;font:inherit;background:white;margin:5px 0 10px}label{font-size:13px;font-weight:750;display:block}.hidden{display:none!important}.section{margin-top:17px}.small{font-size:12px;color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin:14px 0}.stat{padding:13px;background:white;border:1px solid var(--line);border-radius:13px}.stat b{font-size:21px;display:block;color:var(--green)}
+.cartline{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)}.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.actions button{padding:8px 9px}.status{font-size:12px;font-weight:850;border-radius:8px;background:#eef2ed;padding:5px 8px}
+hr{border:0;border-top:1px solid var(--line);margin:13px 0}.fieldgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:9px}.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+footer{text-align:center;color:var(--muted);padding:18px;font-size:12px}
+
+#menuGrid .card{background:#171918;color:#f8f6f0;border:1px solid #343936;box-shadow:0 10px 28px #0002}
+#menuGrid .price{color:#ffc46d;font-size:17px}
+#menuGrid .pill{background:#d8f2df;color:#185b35}
+#menuGrid .pill.low{background:#fff0ce;color:#87550a}
+#menuGrid .pill.out{background:#fde5e3;color:#a42c26}
+#menuGrid .foodpic{border-radius:13px;margin-bottom:10px}
+#menuGrid .btn{background:#f8f6f0;color:#171918}
+#menuGrid .food-title{font-size:20px}
+#customer h1{font-size:28px;letter-spacing:-.7px}
+#customer .sub{font-size:14px}
+#customer .card{border-radius:18px}
+#customer .card h2{letter-spacing:-.4px}
+#profitTable th,#profitTable td{padding:9px 5px}
+@media(min-width:700px){#menuGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style></head>
+<body>
+<header><div class="wrap"><div class="brand">☕ BAKAFE.ID</div><div class="tag">Ngemil enak, pesan lebih mudah.</div>
+<nav><button class="active" data-view="customer">Website Pelanggan</button><button data-view="cashier">Login Kasir</button></nav></div></header>
+<main>
+<div class="notice"><b>PROTOTIPE V4 — DEMO:</b> Login hanya contoh dan belum aman untuk penggunaan nyata. Data disimpan di browser ini, belum tersambung online antarperangkat, dan printer belum terintegrasi. Menu/harga/modal awal adalah contoh.</div>
+<section id="customer">
+<h1>Menu BAKAFE</h1><p class="sub">Lihat sisa porsi sebelum memesan. Pembayaran di kasir.</p><div class="grid" id="menuGrid"></div>
+<div class="two section"><div class="card"><h2 style="margin-top:0">🛒 Pesanan kamu</h2><div id="cartItems"><p class="small">Belum ada menu dipilih.</p></div><div class="row"><b>Total</b><b id="cartTotal">Rp0</b></div><label>Nama pemesan</label><input id="customerName" maxlength="40" placeholder="Contoh: Hana"><button class="btn orange" style="width:100%" onclick="submitOrder()">Kirim pesanan — bayar di kasir</button><div id="customerMessage"></div></div>
+<div class="card"><h2 style="margin-top:0">Cara memesan</h2><p>1. Pilih menu dan isi nama.</p><p>2. Kirim pesanan.</p><p>3. Datang ke kasir untuk konfirmasi dan pembayaran.</p><p class="small">Pesanan demo hanya tersimpan pada browser ini.</p></div></div>
+</section>
+<section id="cashier" class="hidden">
+<div id="loginPanel" class="card" style="max-width:440px;margin:15px auto"><h1>🔐 Login Kasir</h1><p class="sub">Masuk untuk mengelola menu, stok, pesanan dan laporan.</p><label>Nama pengguna</label><input id="loginUser" placeholder="Contoh: kasir"><label>Kata sandi demo</label><input id="loginPass" type="password" placeholder="Kata sandi"><button class="btn" style="width:100%" onclick="login()">Masuk</button><p class="small">Demo awal: pengguna <b>kasir</b>, kata sandi <b>bakafe123</b>. Ganti sebelum sistem dipakai sungguhan.</p><div id="loginError" class="small"></div></div>
+<div id="cashierApp" class="hidden">
+<div class="row"><div><h1>Panel Kasir BAKAFE</h1><p class="sub">Kelola menu, stok, pesanan dan laporan.</p></div><button class="btn red" onclick="logout()">Keluar</button></div>
+<div class="stats"><div class="stat"><span class="small">Pesanan</span><b id="statOrders">0</b></div><div class="stat"><span class="small">Menunggu</span><b id="statNew">0</b></div><div class="stat"><span class="small">Siap diambil</span><b id="statReady">0</b></div><div class="stat"><span class="small">Penjualan lunas</span><b id="statSales">Rp0</b></div><div class="stat"><span class="small">Perkiraan laba kotor lunas</span><b id="statProfit">Rp0</b></div></div>
+<div class="two">
+<div class="card"><h2 style="margin-top:0">➕ Tambah / Edit Menu</h2><input id="editId" type="hidden"><label>Nama menu</label><input id="menuName" placeholder="Contoh: Nasi Goreng"><div class="fieldgrid"><div><label>Harga jual (Rp)</label><input id="menuPrice" type="number" min="0" placeholder="15000"></div><div><label>Modal per porsi (Rp)</label><input id="menuCost" type="number" min="0" placeholder="8000"></div><div><label>Stok awal porsi</label><input id="menuStock" type="number" min="0" placeholder="20"></div></div><label>Gambar menu (pilih dari HP/laptop)</label><input id="menuImageFile" type="file" accept="image/*" onchange="previewImage(event)"><div id="imagePreview" class="small">Belum memilih gambar baru.</div><label>Atau tautan gambar (opsional)</label><input id="menuImageUrl" placeholder="https://..."><div class="actions"><button class="btn" onclick="saveMenu()">Simpan menu</button><button class="btn light" onclick="clearMenuForm()">Kosongkan form</button></div><p class="small">Gambar lokal hanya disimpan di browser demo. Pada sistem online gambar perlu diunggah ke penyimpanan server.</p></div>
+<div class="card"><h2 style="margin-top:0">📦 Stok Porsi</h2><p class="small">Tambahkan porsi yang baru disiapkan. Stok pelanggan berubah mengikuti jumlah ini.</p><div id="stockEditor"></div></div>
+</div>
+<div class="card section"><h2 style="margin-top:0">🍽️ Menu terdaftar</h2><div id="menuAdmin" class="grid"></div></div>
+<div class="section"><h2>📋 Pesanan</h2><div id="ordersList"></div></div>
+<div class="card section"><h2 style="margin-top:0">📊 Modal dan Keuntungan</h2><p class="small">Modal per porsi diisi saat membuat/mengedit menu. Perkiraan laba kotor = (harga jual − modal per porsi) × jumlah terjual pada pesanan yang sudah lunas. Belum termasuk listrik, gas, sewa, upah, dan biaya lainnya.</p><div id="profitTable"></div></div>
+<div class="card section" id="salesReport">
+<h2 style="margin-top:0">🧾 Laporan Penjualan</h2>
+<p class="small">Pilih periode laporan. Tombol cetak membuka dialog cetak browser; kamu bisa memilih printer atau Simpan sebagai PDF.</p>
+<div class="fieldgrid">
+<div><label>Jenis laporan</label><select id="reportPeriod" onchange="renderReport()"><option value="daily">Harian</option><option value="monthly">Bulanan</option></select></div>
+<div><label>Tanggal / bulan</label><input id="reportDate" type="date" onchange="renderReport()"></div>
+</div>
+<div id="reportSummary"></div>
+<div class="actions"><button class="btn orange" onclick="printReport()">🖨️ Cetak laporan</button><button class="btn light" onclick="downloadReportCSV()">⬇️ Unduh CSV</button></div>
+</div>
+<div class="card section"><h2 style="margin-top:0">🔊 Tes panggilan di area kasir</h2><p class="small">Panggilan hanya ditujukan ke area kasir/meja pengambilan, bukan seluruh tempat duduk. Hubungkan speaker yang diletakkan di dekat kasir jika diperlukan.</p><button class="btn orange" onclick="playBell();setTimeout(()=>speak('Pesanan atas nama Hana sudah siap. Silakan mengambil pesanan di kasir. Terima kasih.'),800)">▶ Tes suara bel + panggilan</button></div>
+</div></section>
+</main><footer>BAKAFE.ID · Prototipe v4 · Belum untuk transaksi pelanggan sungguhan.</footer>
+<script>
+const defaults=[
+{id:'nasgor',name:'Nasi Goreng',icon:'🍛',price:15000,cost:8000,stock:20,image:''},
+{id:'migor',name:'Mi Goreng',icon:'🍜',price:12000,cost:6500,stock:15,image:''},
+{id:'geprek',name:'Ayam Geprek',icon:'🍗',price:15000,cost:9000,stock:10,image:''},
+{id:'rotbak',name:'Roti Bakar',icon:'🍞',price:10000,cost:5000,stock:8,image:''},
+{id:'esteh',name:'Es Teh',icon:'🥤',price:5000,cost:1500,stock:30,image:''},
+{id:'kopi',name:'Kopi Susu',icon:'☕',price:8000,cost:3500,stock:20,image:''}];
+let menu=JSON.parse(localStorage.getItem('bakafe4_menu')||'null')||defaults;
+let orders=JSON.parse(localStorage.getItem('bakafe4_orders')||'[]'),cart={},loggedIn=false,chosenImage='';
+const rupiah=n=>'Rp'+Number(n||0).toLocaleString('id-ID');
+function persist(){localStorage.setItem('bakafe4_menu',JSON.stringify(menu));localStorage.setItem('bakafe4_orders',JSON.stringify(orders))}
+function renderMenu(){document.getElementById('menuGrid').innerHTML=menu.map(m=>`<div class="card"><div class="foodpic">${m.image?`<img src="${m.image}" alt="${m.name}">`:m.icon||'🍽️'}</div><div class="food-title">${esc(m.name)}</div><div class="price">${rupiah(m.price)}</div><div class="row"><span class="pill ${m.stock===0?'out':m.stock<=3?'low':''}">${m.stock===0?'Habis':m.stock<=3?'Hampir habis':`Sisa ${m.stock} porsi`}</span><button class="btn" ${m.stock<=0?'disabled':''} onclick="addCart('${m.id}')">${m.stock<=0?'Habis':'+ Pilih'}</button></div></div>`).join('')}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function addCart(id){let m=menu.find(x=>x.id===id);if(!m||m.stock<=0)return;if((cart[id]||0)>=m.stock)return alert('Jumlah melebihi stok.');cart[id]=(cart[id]||0)+1;renderCart()}
+function changeQty(id,d){let m=menu.find(x=>x.id===id),q=(cart[id]||0)+d;if(q<=0)delete cart[id];else if(q<=m.stock)cart[id]=q;else alert('Jumlah melebihi stok.');renderCart()}
+function renderCart(){let e=Object.entries(cart);document.getElementById('cartItems').innerHTML=e.length?e.map(([id,q])=>{let m=menu.find(x=>x.id===id);return `<div class="cartline"><div><b>${esc(m.name)}</b><div class="small">${rupiah(m.price)} × ${q}</div></div><div><button class="btn light" onclick="changeQty('${id}',-1)">−</button> ${q} <button class="btn light" onclick="changeQty('${id}',1)">+</button></div></div>`}).join(''):'<p class="small">Belum ada menu dipilih.</p>';document.getElementById('cartTotal').textContent=rupiah(e.reduce((s,[id,q])=>s+menu.find(x=>x.id===id).price*q,0))}
+function submitOrder(){
+ let name=document.getElementById('customerName').value.trim();
+ if(!name)return alert('Isi nama pemesan.');
+ let items=Object.entries(cart).map(([id,qty])=>{let m=menu.find(x=>x.id===id);return{id,name:m.name,price:m.price,cost:m.cost,qty}});
+ if(!items.length)return alert('Pilih menu dahulu.');
+ for(let i of items)if(i.qty>menu.find(m=>m.id===i.id).stock)return alert('Stok berubah, periksa pesanan.');
+ const total=items.reduce((s,i)=>s+i.price*i.qty,0);
+ const summary=items.map(i=>`${i.name} × ${i.qty} — ${rupiah(i.price*i.qty)}`).join('\n');
+ const ok=confirm(`Apakah pesanan ini sudah benar?\n\nNama: ${name}\n${summary}\n\nTotal: ${rupiah(total)}\n\nTekan OK untuk mengirim pesanan, atau Batal untuk memeriksa kembali.`);
+ if(!ok)return;
+ items.forEach(i=>menu.find(m=>m.id===i.id).stock-=i.qty);
+ let o={number:'BK-'+String(Date.now()).slice(-6),name,items,total,status:'Menunggu konfirmasi',paid:false,dateISO:new Date().toISOString().slice(0,10),created:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})};
+ orders.unshift(o);persist();cart={};document.getElementById('customerName').value='';renderAll();
+ document.getElementById('customerMessage').innerHTML=`<div class="notice"><b>Pesanan selesai dikirim!</b><br>Nomor: ${o.number}<br>Silakan lakukan konfirmasi dan pembayaran di kasir.<br><small>Catatan: pada prototipe, pesanan hanya tersimpan di browser ini.</small></div>`;
+}
+function login(){if(document.getElementById('loginUser').value.trim()==='kasir'&&document.getElementById('loginPass').value==='bakafe123'){loggedIn=true;document.getElementById('loginPanel').classList.add('hidden');document.getElementById('cashierApp').classList.remove('hidden');renderAll()}else document.getElementById('loginError').textContent='Nama pengguna atau kata sandi salah.'}
+function logout(){loggedIn=false;document.getElementById('cashierApp').classList.add('hidden');document.getElementById('loginPanel').classList.remove('hidden');document.getElementById('loginPass').value=''}
+function previewImage(e){const f=e.target.files[0];if(!f)return;if(f.size>1200000){alert('Untuk demo pilih gambar di bawah 1,2 MB agar tidak terlalu besar.');e.target.value='';return}const r=new FileReader();r.onload=()=>{chosenImage=r.result;document.getElementById('imagePreview').innerHTML=`<img style="max-width:150px;max-height:90px;border-radius:8px" src="${chosenImage}">`;};r.readAsDataURL(f)}
+function clearMenuForm(){['editId','menuName','menuPrice','menuCost','menuStock','menuImageUrl'].forEach(id=>document.getElementById(id).value='');document.getElementById('menuImageFile').value='';document.getElementById('imagePreview').textContent='Belum memilih gambar baru.';chosenImage=''}
+function saveMenu(){let name=document.getElementById('menuName').value.trim(),price=Number(document.getElementById('menuPrice').value),cost=Number(document.getElementById('menuCost').value),stock=Number(document.getElementById('menuStock').value),id=document.getElementById('editId').value;if(!name)return alert('Isi nama menu.');if(!Number.isFinite(price)||price<=0)return alert('Isi harga jual.');if(!Number.isFinite(cost)||cost<0)return alert('Isi modal per porsi (boleh 0 jika belum diketahui).');if(!Number.isFinite(stock)||stock<0)return alert('Isi stok awal.');let image=chosenImage||document.getElementById('menuImageUrl').value.trim();if(id){let m=menu.find(x=>x.id===id);if(!m)return;m.name=name;m.price=price;m.cost=cost;m.stock=stock;if(image)m.image=image}else{menu.push({id:'m'+Date.now(),name,icon:'🍽️',price,cost,stock,image})}persist();clearMenuForm();renderAll();alert('Menu tersimpan di prototipe ini.')}
+function editMenu(id){let m=menu.find(x=>x.id===id);document.getElementById('editId').value=m.id;document.getElementById('menuName').value=m.name;document.getElementById('menuPrice').value=m.price;document.getElementById('menuCost').value=m.cost;document.getElementById('menuStock').value=m.stock;document.getElementById('menuImageUrl').value=m.image&&!m.image.startsWith('data:')?m.image:'';chosenImage=m.image&&m.image.startsWith('data:')?m.image:'';document.getElementById('imagePreview').innerHTML=m.image?`<img style="max-width:150px;max-height:90px;border-radius:8px" src="${m.image}">`:'Belum ada gambar menu.';window.scrollTo({top:0,behavior:'smooth'})}
+function deleteMenu(id){if(!confirm('Hapus menu ini?'))return;menu=menu.filter(x=>x.id!==id);delete cart[id];persist();renderAll()}
+function renderAdmin(){document.getElementById('menuAdmin').innerHTML=menu.map(m=>`<div class="card"><div class="row"><b>${esc(m.name)}</b><span class="pill ${m.stock===0?'out':''}">${m.stock} porsi</span></div><p>Jual: ${rupiah(m.price)} · Modal: ${rupiah(m.cost)}<br><b>Selisih per porsi: ${rupiah(m.price-m.cost)}</b></p><div class="actions"><button class="btn light" onclick="editMenu('${m.id}')">Edit</button><button class="btn red" onclick="deleteMenu('${m.id}')">Hapus</button></div></div>`).join('')}
+function renderStock(){document.getElementById('stockEditor').innerHTML=menu.map(m=>`<div style="border-bottom:1px solid var(--line);padding:8px 0"><div class="row"><b>${esc(m.name)}</b><span class="pill ${m.stock===0?'out':m.stock<=3?'low':''}">${m.stock} porsi</span></div><div class="row"><input style="max-width:125px" type="number" min="1" id="add-${m.id}" placeholder="Tambah porsi"><button class="btn light" onclick="addStock('${m.id}')">+ Tambah</button><button class="btn light" onclick="editMenu('${m.id}')">Ubah stok</button></div></div>`).join('')||'<p>Belum ada menu.</p>'}
+function addStock(id){let m=menu.find(x=>x.id===id),v=Number(document.getElementById('add-'+id).value);if(!Number.isInteger(v)||v<=0)return alert('Masukkan jumlah porsi tambahan.');m.stock+=v;persist();renderAll()}
+function renderOrders(){document.getElementById('ordersList').innerHTML=orders.length?orders.map(o=>`<div class="order"><div class="row"><div><span class="small">${o.number} · ${o.created}</span><h3 style="margin:4px 0">${esc(o.name)}</h3></div><span class="status">${o.status}${o.paid?' · LUNAS':''}</span></div><p>${o.items.map(i=>`${esc(i.name)} × ${i.qty}`).join(', ')}</p><div class="row"><b>${rupiah(o.total)}</b><span class="small">${o.paid?'Pembayaran diterima':'Belum lunas'}</span></div><div class="actions">${o.status==='Menunggu konfirmasi'?`<button class="btn" onclick="setStatus('${o.number}','Diterima')">Terima pesanan</button><button class="btn red" onclick="rejectOrder('${o.number}')">Tolak</button>`:''}${['Diterima','Sedang dibuat'].includes(o.status)?`<button class="btn orange" onclick="setStatus('${o.number}','${o.status==='Diterima'?'Sedang dibuat':'Siap diambil'}')">${o.status==='Diterima'?'Mulai dibuat':'Pesanan siap'}</button>`:''}${o.status==='Siap diambil'?`<button class="btn orange" onclick="callCustomer('${o.number}')">🔊 Panggil ke kasir</button>`:''}${!o.paid&&o.status!=='Ditolak'?`<button class="btn light" onclick="markPaid('${o.number}')">Tandai lunas</button>`:''}</div></div>`).join(''):'<div class="card">Belum ada pesanan.</div>';
+let paid=orders.filter(o=>o.paid);document.getElementById('statOrders').textContent=orders.length;document.getElementById('statNew').textContent=orders.filter(o=>o.status==='Menunggu konfirmasi').length;document.getElementById('statReady').textContent=orders.filter(o=>o.status==='Siap diambil').length;document.getElementById('statSales').textContent=rupiah(paid.reduce((s,o)=>s+o.total,0));document.getElementById('statProfit').textContent=rupiah(paid.reduce((s,o)=>s+o.items.reduce((a,i)=>a+(i.price-i.cost)*i.qty,0),0))}
+function renderProfit(){document.getElementById('profitTable').innerHTML=`<div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;font-size:13px"><thead><tr><th align="left">Menu</th><th align="right">Harga</th><th align="right">Modal</th><th align="right">Laba/porsi</th><th align="right">Terjual lunas</th><th align="right">Laba kotor</th></tr></thead><tbody>${menu.map(m=>{let qty=orders.filter(o=>o.paid).reduce((s,o)=>s+o.items.filter(i=>i.id===m.id).reduce((a,i)=>a+i.qty,0),0);return `<tr style="border-top:1px solid var(--line)"><td>${esc(m.name)}</td><td align="right">${rupiah(m.price)}</td><td align="right">${rupiah(m.cost)}</td><td align="right">${rupiah(m.price-m.cost)}</td><td align="right">${qty}</td><td align="right">${rupiah((m.price-m.cost)*qty)}</td></tr>`}).join('')}</tbody></table></div>`}
+function setStatus(num,s){let o=orders.find(x=>x.number===num);if(o){o.status=s;persist();renderAll()}}
+function rejectOrder(num){let o=orders.find(x=>x.number===num);if(!o||!confirm('Tolak pesanan dan kembalikan stok porsi?'))return;o.items.forEach(i=>{let m=menu.find(x=>x.id===i.id);if(m)m.stock+=i.qty});o.status='Ditolak';persist();renderAll()}
+function markPaid(num){let o=orders.find(x=>x.number===num);if(o&&!o.paid&&confirm('Pastikan uang sudah benar-benar diterima. Tandai lunas?')){o.paid=true;persist();renderAll()}}
+function playBell(){
+ try{
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC){return false}
+  const ctx=new AC();
+  const now=ctx.currentTime;
+  // Two clean bell tones: the sound is generated; the words "ding dong" are not spoken.
+  [[880,0],[659,0.34]].forEach(([freq,delay])=>{
+   const osc=ctx.createOscillator(),gain=ctx.createGain();
+   osc.type='sine';osc.frequency.setValueAtTime(freq,now+delay);
+   gain.gain.setValueAtTime(0.0001,now+delay);
+   gain.gain.exponentialRampToValueAtTime(0.22,now+delay+0.025);
+   gain.gain.exponentialRampToValueAtTime(0.0001,now+delay+0.62);
+   osc.connect(gain);gain.connect(ctx.destination);
+   osc.start(now+delay);osc.stop(now+delay+0.65);
+  });
+  setTimeout(()=>ctx.close(),1300);return true;
+ }catch(e){return false}
+}
+function speak(t){if(!('speechSynthesis'in window))return alert('Browser ini belum mendukung suara otomatis. Coba Chrome.');speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='id-ID';u.rate=.9;speechSynthesis.speak(u)}
+function callCustomer(num){
+ let o=orders.find(x=>x.number===num);if(!o)return;
+ if('speechSynthesis'in window)speechSynthesis.cancel();
+ playBell();
+ setTimeout(()=>speak(`Pesanan atas nama ${o.name} sudah siap. Silakan mengambil pesanan di kasir. Terima kasih.`),800);
+}
+function sameReportPeriod(o,period,dateValue){
+ const d=o.dateISO||(new Date()).toISOString().slice(0,10);
+ return period==='daily'?d===dateValue:d.slice(0,7)===dateValue.slice(0,7);
+}
+function reportData(){
+ const period=document.getElementById('reportPeriod').value;
+ const dateValue=document.getElementById('reportDate').value||new Date().toISOString().slice(0,10);
+ const filtered=orders.filter(o=>o.paid&&sameReportPeriod(o,period,dateValue));
+ const sales=filtered.reduce((s,o)=>s+o.total,0);
+ const cost=filtered.reduce((s,o)=>s+o.items.reduce((a,i)=>a+(i.cost||0)*i.qty,0),0);
+ const profit=sales-cost;
+ const qty=filtered.reduce((s,o)=>s+o.items.reduce((a,i)=>a+i.qty,0),0);
+ return {period,dateValue,filtered,sales,cost,profit,qty};
+}
+function renderReport(){
+ const el=document.getElementById('reportSummary');if(!el)return;
+ const r=reportData(),label=r.period==='daily'?'Harian':'Bulanan';
+ el.innerHTML=`<div class="stats"><div class="stat"><span class="small">Pesanan lunas</span><b>${r.filtered.length}</b></div><div class="stat"><span class="small">Porsi terjual</span><b>${r.qty}</b></div><div class="stat"><span class="small">Penjualan</span><b>${rupiah(r.sales)}</b></div><div class="stat"><span class="small">Modal terhitung</span><b>${rupiah(r.cost)}</b></div><div class="stat"><span class="small">Laba kotor</span><b>${rupiah(r.profit)}</b></div></div><div class="small">${label} · ${r.period==='daily'?r.dateValue:r.dateValue.slice(0,7)} · Hanya pesanan yang sudah ditandai lunas.</div>`;
+}
+function printReport(){
+ const r=reportData(),title=r.period==='daily'?'Laporan Penjualan Harian':'Laporan Penjualan Bulanan';
+ const rows=r.filtered.map(o=>`<tr><td>${o.number}</td><td>${o.created||''}</td><td>${esc(o.name)}</td><td>${o.items.map(i=>`${esc(i.name)} × ${i.qty}`).join(', ')}</td><td>${rupiah(o.total)}</td><td>${rupiah(o.items.reduce((a,i)=>a+(i.cost||0)*i.qty,0))}</td><td>${rupiah(o.total-o.items.reduce((a,i)=>a+(i.cost||0)*i.qty,0))}</td></tr>`).join('');
+ const w=window.open('','_blank');if(!w)return alert('Izinkan pop-up untuk mencetak laporan.');
+ w.document.write(`<!doctype html><html><head><title>${title}</title><meta charset="utf-8"><style>body{font-family:Arial,sans-serif;padding:24px;color:#222}h1{margin-bottom:4px}p{color:#555;font-size:12px}table{border-collapse:collapse;width:100%;font-size:11px;margin-top:18px}th,td{border:1px solid #bbb;padding:7px;text-align:left}th{background:#eee}.totals{display:flex;gap:24px;flex-wrap:wrap;margin-top:20px}.totals div{border:1px solid #bbb;padding:10px;min-width:130px}@media print{button{display:none}}</style></head><body><h1>BAKAFE.ID</h1><h2>${title}</h2><p>Periode: ${r.period==='daily'?r.dateValue:r.dateValue.slice(0,7)} | Dicetak: ${new Date().toLocaleString('id-ID')}</p><div class="totals"><div>Penjualan<br><b>${rupiah(r.sales)}</b></div><div>Modal terhitung<br><b>${rupiah(r.cost)}</b></div><div>Laba kotor<br><b>${rupiah(r.profit)}</b></div><div>Porsi terjual<br><b>${r.qty}</b></div></div><table><thead><tr><th>No. pesanan</th><th>Jam</th><th>Nama</th><th>Rincian</th><th>Penjualan</th><th>Modal</th><th>Laba kotor</th></tr></thead><tbody>${rows||'<tr><td colspan="7">Tidak ada transaksi lunas pada periode ini.</td></tr>'}</tbody></table><p>Catatan: laba kotor berdasarkan modal per porsi yang diinput; belum termasuk biaya operasional lain.</p><script>window.onload=()=>window.print()<\/script></body></html>`);
+ w.document.close();
+}
+function downloadReportCSV(){
+ const r=reportData();let lines=[['No pesanan','Tanggal','Jam','Nama','Rincian','Penjualan','Modal terhitung','Laba kotor']];
+ r.filtered.forEach(o=>{const cost=o.items.reduce((a,i)=>a+(i.cost||0)*i.qty,0);lines.push([o.number,o.dateISO||'',o.created||'',o.name,o.items.map(i=>`${i.name} x ${i.qty}`).join('; '),o.total,cost,o.total-cost])});
+ const csv=lines.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+ const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`bakafe-laporan-${r.period}-${r.dateValue}.csv`;a.click();URL.revokeObjectURL(url);
+}
+function renderAll(){renderMenu();renderCart();if(loggedIn){renderStock();renderAdmin();renderOrders();renderProfit();renderReport()}}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x===b));document.getElementById('customer').classList.toggle('hidden',b.dataset.view!=='customer');document.getElementById('cashier').classList.toggle('hidden',b.dataset.view!=='cashier')}));
+document.getElementById('reportDate').value=new Date().toISOString().slice(0,10);
+renderAll();
+</script></body></html>
