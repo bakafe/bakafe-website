@@ -36,7 +36,32 @@ footer{text-align:center;color:var(--muted);padding:18px;font-size:12px}
 <header><div class="wrap"><div class="brand">☕ BAKAFE.ID</div><div class="tag">Ngemil enak, pesan lebih mudah.</div>
 <nav><button class="active" data-view="customer">Website Pelanggan</button><button data-view="cashier">Login Kasir</button></nav></div></header>
 <main>
-<div class="notice"><b>PROTOTIPE V4 — DEMO:</b> Login hanya contoh dan belum aman untuk penggunaan nyata. Data disimpan di browser ini, belum tersambung online antarperangkat, dan printer belum terintegrasi. Menu/harga/modal awal adalah contoh.</div>
+<div class="notice" id="salamBakafe" style="text-align:center;background:#fff4db;padding:18px;border-radius:14px;margin-bottom:20px">
+  <div style="font-size:24px;font-weight:bold;color:#153d32">
+    بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+  </div>
+  <h2 id="salamWaktu" style="margin:12px 0 6px;color:#153d32">
+    Assalamu'alaikum, selamat datang!
+  </h2>
+  <p style="margin:0;color:#555">
+    Selamat datang di BAKAFE ☕<br>
+    Ngemil enak, pesan lebih mudah.
+  </p>
+</div>
+
+<script>
+(function(){
+  const jam = new Date().getHours();
+  let salam = "selamat malam";
+
+  if (jam >= 4 && jam < 11) salam = "selamat pagi";
+  else if (jam >= 11 && jam < 15) salam = "selamat siang";
+  else if (jam >= 15 && jam < 18) salam = "selamat sore";
+
+  document.getElementById("salamWaktu").textContent =
+    "Assalamu'alaikum, " + salam + "!";
+})();
+</script>
 <section id="customer">
 <h1>Menu BAKAFE</h1><p class="sub">Lihat sisa porsi sebelum memesan. Pembayaran di kasir.</p><div class="grid" id="menuGrid"></div>
 <div class="two section"><div class="card"><h2 style="margin-top:0">🛒 Pesanan kamu</h2><div id="cartItems"><p class="small">Belum ada menu dipilih.</p></div><div class="row"><b>Total</b><b id="cartTotal">Rp0</b></div><label>Nama pemesan</label><input id="customerName" maxlength="40" placeholder="Contoh: Hana"><button class="btn orange" style="width:100%" onclick="submitOrder()">Kirim pesanan — bayar di kasir</button><div id="customerMessage"></div></div>
